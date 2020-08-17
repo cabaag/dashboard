@@ -56,10 +56,15 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "yarn lint:fix"
+      "yarn lint:fix",
+      "yarn test --watchAll=false"
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
     "lint-staged": "^10.2.11",
     "tslint": "^6.1.3"
   }
