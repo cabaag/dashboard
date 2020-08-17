@@ -5,18 +5,18 @@ import Dashboard from '../Dashboard/Dashboard';
 import User from '../User/User';
 
 function Home() {
-		return (
-				<Layout>
-						<Switch>
-								<Route exact path='/'>
-										<Dashboard />
-								</Route>
-								<Route exact path='/user'>
-										<User />
-								</Route>
-						</Switch>
-				</Layout>
-		);
+	return (
+		<Layout>
+			<Switch>
+				<Route exact path='/'>
+					<Dashboard />
+				</Route>
+				<Route exact path='/user'>
+					<User />
+				</Route>
+			</Switch>
+		</Layout>
+	);
 }
 
 export default Home;

@@ -30,6 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "yarn test --verbose --coverage",
     "eject": "react-scripts eject",
     "lint": "tslint -p tslint.json -t verbose",
     "lint:fix": "tslint -p tslint.json --fix -t verbose"
@@ -63,6 +64,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "axios-mock-adapter": "^1.18.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.3",
     "lint-staged": "^10.2.11",

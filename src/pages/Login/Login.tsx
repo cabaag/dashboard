@@ -1,4 +1,15 @@
-import { Button, Card, CardContent, Container, Grid, IconButton, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core';
+import {
+	Button,
+	Card,
+	CardContent,
+	Container,
+	Grid,
+	IconButton,
+	InputAdornment,
+	makeStyles,
+	TextField,
+	Typography,
+} from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -24,11 +35,8 @@ const useStyles = makeStyles({
 });
 
 const loginSchema = Yup.object().shape({
-	email: Yup.string()
-		.email()
-		.required('Required'),
-	password: Yup.string()
-		.required('Required'),
+	email: Yup.string().email().required('Required'),
+	password: Yup.string().required('Required'),
 });
 
 type Values = {
@@ -36,7 +44,8 @@ type Values = {
 	password: string;
 };
 
-function Login() {
+// tslint:disable-next-line: variable-name
+const Login: React.FC<{}> = () => {
 	const classes = useStyles();
 	const history = useHistory();
 	const context = useContext(GlobalContext);
@@ -56,35 +65,39 @@ function Login() {
 		values: Values,
 		{ setSubmitting }: FormikHelpers<Values>
 	) => {
-		login(values.email, values.password).then((response) => {
-			localStorage.setItem('token', JSON.stringify(response.headers.authorization));
-			context.setToken(response.headers.authorization);
-			history.push('/');
-		}).catch(() => {
-			setOpenAlert(true);
-			setSubmitting(false);
-		});
+		login(values.email, values.password)
+			.then((response) => {
+				localStorage.setItem(
+					'token',
+					JSON.stringify(response.headers.authorization)
+				);
+				context.setToken(response.headers.authorization);
+				history.push('/');
+			})
+			.catch(() => {
+				setOpenAlert(true);
+				setSubmitting(false);
+			});
 	};
 
 	return (
 		<Container className={classes.root} fixed>
-			<Grid container spacing={3} justify='center'
-				alignItems='center'>
+			<Grid container spacing={3} justify='center' alignItems='center'>
 				<Snackbar
 					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={openAlert} autoHideDuration={3000}
-					onClose={() => setOpenAlert(false)}>
-					<Alert severity='error'>
-						An error happened!
-										</Alert>
+					open={openAlert}
+					autoHideDuration={3000}
+					onClose={() => setOpenAlert(false)}
+				>
+					<Alert severity='error'>An error happened!</Alert>
 				</Snackbar>
 
-				<Grid item xs={12} sm={8} md={6} lg={4} >
+				<Grid item xs={12} sm={8} md={6} lg={4}>
 					<Card>
 						<CardContent>
 							<Typography gutterBottom variant='h5' component='h2'>
 								Login
-														</Typography>
+							</Typography>
 							<Formik
 								initialValues={{
 									email: '',
@@ -104,7 +117,8 @@ function Login() {
 													variant='outlined'
 													fullWidth
 													error={errors.email && touched.email}
-													helperText={errors.email} />
+													helperText={errors.email}
+												/>
 											</Grid>
 											<Grid item>
 												<Field
@@ -122,25 +136,40 @@ function Login() {
 																	onClick={handleClickShowPassword}
 																	onMouseDown={handleMouseDownPassword}
 																>
-																	{showPassword ? <Visibility /> : <VisibilityOff />}
+																	{showPassword ? (
+																		<Visibility />
+																	) : (
+																			<VisibilityOff />
+																		)}
 																</IconButton>
 															</InputAdornment>
-														)
+														),
 													}}
 													error={errors.password && touched.password}
 													helperText={errors.password}
 												/>
 											</Grid>
-											<Grid item container direction='row' justify='space-between'>
+											<Grid
+												item
+												container
+												direction='row'
+												justify='space-between'
+											>
 												<Grid item>
 													<Button color='secondary' type='button'>
 														Create account
-																										</Button>
+													</Button>
 												</Grid>
 												<Grid item>
-													<Button variant='contained' color='primary' type='submit' disabled={!isValid}>
+													<Button
+														variant='contained'
+														color='primary'
+														type='submit'
+														disabled={!isValid}
+														id='submit'
+													>
 														Send
-																										</Button>
+													</Button>
 												</Grid>
 											</Grid>
 										</Grid>
@@ -151,8 +180,8 @@ function Login() {
 					</Card>
 				</Grid>
 			</Grid>
-		</Container >
+		</Container>
 	);
-}
+};
 
 export default Login;

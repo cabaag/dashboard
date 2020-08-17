@@ -1,4 +1,3 @@
-
 function b64decode(str: string): string {
 	const chars =
 		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -68,19 +67,15 @@ function urlBase64Decode(str: string): string {
 }
 
 function decodeToken(token: string): any {
-	if (token === null) {
-		return null;
-	}
-
 	const parts = token.split('.');
 
 	if (parts.length !== 3) {
-		throw new Error('The inspected token doesn\'t appear to be a JWT.');
+		throw new Error('The inspected token doesn\'t appear to be a JWT');
 	}
 
 	const decoded = urlBase64Decode(parts[1]);
 	if (!decoded) {
-		throw new Error('Cannot decode the token.');
+		throw new Error('Cannot decode the token');
 	}
 
 	return JSON.parse(decoded);

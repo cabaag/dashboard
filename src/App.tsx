@@ -2,46 +2,15 @@ import { ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import {
 	BrowserRouter as Router,
-	Redirect, Route, Switch
+	Switch
 } from 'react-router-dom';
 import './App.scss';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import { PublicRoute } from './components/PublicRoute/PublicRoute';
 import theme from './config/theme';
+import { GlobalContext } from './globalContext';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
-import { isTokenExpired } from './services/token.service';
-import { GlobalContext } from './globalContext';
-
-
-function PrivateRoute({ component, ...rest }: any) {
-	return (<GlobalContext.Consumer>
-		{
-			({ token }) => (
-				<Route {...rest} render={(props) => (
-					token && !isTokenExpired(token)
-						? React.createElement(component, props)
-						: <Redirect to='/login' />
-				)} />
-			)}
-	</GlobalContext.Consumer>
-	);
-}
-
-
-function PublicRoute({ component, ...rest }: any) {
-	return (<GlobalContext.Consumer>
-		{
-			({ token }) => (
-				<Route {...rest} render={(props) => (
-					!token || isTokenExpired(token)
-						? React.createElement(component, props)
-						: <Redirect to='/' />
-				)} />
-			)
-		}
-	</GlobalContext.Consumer>
-	);
-}
-
 
 const tokenTmp = localStorage.getItem('token') || null;
 
